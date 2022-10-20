@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:500,700");
+
+@import "bootstrap/scss/bootstrap";
+//@import '~swiper/swiper-vars';
+//@import '~swiper/swiper';
+
+@import 'swiper/modules/pagination/pagination.min.css';
+
+* {
+  font-family: 'Montserrat';
+}
+
+@import "app/styles/header";
+@import "app/styles/hero";
+@import "app/styles/question";
+
+
+.highlight-success {
+  background: orange;
+  border-radius: 3px;
+}

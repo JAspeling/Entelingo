@@ -1,0 +1,25 @@
+<div class="card mx-2" style="width: 18rem;" [class.correct]="isCorrect">
+  <div class="card-body d-flex flex-column justify-content-center align-items-center">
+    <h5 class="card-title">{{header}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{subHeader }}</h6>
+
+    <button type="button" class="btn btn-primary record my-4"
+            (click)="toggle()"
+            [class.recording]="isRecording">
+      <ng-container *ngIf="isRecording;else ready">
+        <app-loader-recording></app-loader-recording>
+      </ng-container>
+      <ng-template #ready>
+        <i class="fa-solid fa-microphone"></i>
+      </ng-template>
+    </button>
+
+    <h6 class="card-subtitle mb-2 text-muted">{{feedback ?? '&zwnj' }}</h6>
+
+    <h6 appHighlight
+        [searchedWords]="['begin']"
+        classToApply="highlight-success"
+        class="card-subtitle mb-2 text-muted"
+        [text]="recorded"></h6>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+.questions {
+  .card {
+    .card-title {
+      text-align: center;
+    }
+
+    .record {
+      height: 100px;
+      width: 100px;
+
+      font-size: 25px;
+
+      border-radius: 50%;
+    }
+
+    &.correct {
+      background-color: #27A544;
+
+      .card-title {
+        color: #fff;
+      }
+
+      .card-subtitle, .text-muted {
+        color: #fff !important;
+        font-weight: bold;
+      }
+    }
+
+    .highlight {
+      &-success {
+        background: orange;
+      }
+    }
+
+  }
+}
+
