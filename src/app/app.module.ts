@@ -10,6 +10,7 @@ import { SpeechCardModule } from "./components/speech-card/speech-card.module";
 import { SwiperModule } from 'swiper/angular';
 import { FormsModule } from "@angular/forms";
 import { SharedModule } from "./shared.module";
+import { LoaderModule } from "./components/loader-recording/loader.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SharedModule } from "./shared.module";
     SpeechCardModule,
     FormsModule,
     SharedModule,
+    LoaderModule,
   ],
   providers: [],
   exports: [

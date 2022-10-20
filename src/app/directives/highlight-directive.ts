@@ -26,6 +26,6 @@ export class HighlightDirective {
   getFormattedText() {
     const re = new RegExp(`(${ this.searchedWords.join('|') })`, 'g');
 
-    return this.text.replace(re, `<span class="${this.classToApply}">$1</span>`);
+    return this.text?.replace(re, `<span class="${this.classToApply}">$1</span>`) || '';
   }
 }

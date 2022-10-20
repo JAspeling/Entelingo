@@ -1,4 +1,4 @@
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, fromEvent, map, Observable, Subject } from "rxjs";
 import { Guid } from "../../models/guid";
 
 declare var webkitSpeechRecognition: any;
@@ -50,20 +50,28 @@ export class SpeechService {
     })
   }
 
-  start() {
-    this.startedRecording$.next(true);
-    this.isStopped = false;
+  public start(): Observable<string> {
     this.recognition.start();
-    // console.log("Speech recognition started")
-    this.recognition.addEventListener('end', (condition: any) => {
-      if (this.isStopped) {
-        this.recognition.stop();
-        console.log("End speech recognition")
-      } else {
-        this.wordConcat()
-        this.recognition.start();
-      }
-    });
+    this.isStopped = false;
+
+    return fromEvent(this.recognition, 'end')
+      .pipe(
+        map((e: any) => this.wordConcat())
+      );
+
+    // this.startedRecording$.next(true);
+    // this.isStopped = false;
+    // this.recognition.start();
+    // // console.log("Speech recognition started")
+    // this.recognition.addEventListener('end', (condition: any) => {
+    //   if (this.isStopped) {
+    //     this.recognition.stop();
+    //     console.log("End speech recognition")
+    //   } else {
+    //     this.wordConcat()
+    //     this.recognition.start();
+    //   }
+    // });
   }
 
   stop() {
@@ -75,9 +83,10 @@ export class SpeechService {
     console.log("End speech recognition")
   }
 
-  private wordConcat() {
+  private wordConcat(): string {
     this.text = this.text + ' ' + this.tempWords;
     this.currentText$.next(this.text);
     this.tempWords = '';
+    return this.text;
   }
 }

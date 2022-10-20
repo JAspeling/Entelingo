@@ -1,34 +1,43 @@
 <app-header></app-header>
 
 <div class="container">
-  <h1 class="current-word mt-3">{{current.word}}</h1>
 
   <ng-container *ngFor="let question of questions">
+
+    <h1 class="current-word mt-3">{{question.word}}</h1>
+
     <ng-container *ngFor="let form of question.forms">
-      <div class="card mt-5">
-        <div class="card-header">
-          <h3>{{form.form}} ({{question.word}})</h3>
-        </div>
-        <div class="card-body">
-          <div class="d-flex justify-content-center questions">
-
-            <swiper
-              [config]="config"
-              [pagination]="{ clickable: true }"
-              [scrollbar]="false"
-            >
-              <ng-template *ngFor="let tense of form.tenses" swiperSlide>
-                <app-speech-card [header]="tense.tense"
-                                 [expected]="tense.value"
-                                 (text)="setText($event)"></app-speech-card>
+      <table class="table table-ww table-bordered">
+        <tbody>
+        <tr>
+          <td rowspan="5" class="vertical">
+        <span>
+          {{form.form}}
+        </span>
+          </td>
+        </tr>
+        <tr *ngFor="let tense of form.tenses">
+          <td style="width: 200px; vertical-align: middle" >{{tense.tense}}</td>
+          <td #speech appHighlight
+              [searchedWords]="[tense.value]"
+              classToApply="highlight-success"
+              [text]="tense.speech"></td>
+          <td style="width: 65px">
+            <button type="button" class="btn btn-primary record d-flex align-items-center justify-content-center"
+                    (click)="listen(tense)"
+                    [class.recording]="tense.isRecording">
+              <ng-container *ngIf="tense.isRecording;else ready">
+                <app-loader-recording></app-loader-recording>
+              </ng-container>
+              <ng-template #ready>
+                <i class="fa-solid fa-xs fa-microphone"></i>
               </ng-template>
-            </swiper>
+            </button>
 
-          </div>
-
-        </div>
-      </div>
-
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </ng-container>
   </ng-container>
 </div>

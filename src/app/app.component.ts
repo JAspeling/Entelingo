@@ -117,40 +117,6 @@ export class AppComponent {
     }
   ]
 
-
-  current: any = {
-    word: 'Beginnen',
-    tense: 'Verleden tijd',
-    speech: '',
-    questions: [
-      {
-        header: 'Ik',
-        expected: 'begin'
-      },
-      {
-        header: 'Jij / U',
-        expected: 'begont'
-      },
-      {
-        header: 'Hij / Zij / Het',
-        expected: 'begont'
-      },
-      {
-        header: 'Wij / we',
-        expected: 'begonnen'
-      },
-      {
-        header: 'Jullie',
-        expected: 'begonnen'
-      },
-      {
-        header: 'Zij / ze',
-        expected: 'begonnen'
-      }
-    ]
-  }
-  test: string = 'Test Johan';
-
   constructor(private speechService: SpeechService) {
   }
 
@@ -159,12 +125,15 @@ export class AppComponent {
   }
 
   stop() {
-
     this.speechService.stop();
   }
 
-  setText(text: string) {
-    console.log('setting text', text);
-    this.current.speech = text;
+  listen(tense: any) {
+    tense.isRecording = true;
+    let sub = this.speechService.start().subscribe((result) => {
+      tense.speech = result;
+      tense.isRecording = false;
+      sub.unsubscribe();
+    });
   }
 }
