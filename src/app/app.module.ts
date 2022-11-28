@@ -11,6 +11,7 @@ import { SwiperModule } from 'swiper/angular';
 import { FormsModule } from "@angular/forms";
 import { SharedModule } from "./shared.module";
 import { LoaderModule } from "./components/loader-recording/loader.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { LoaderModule } from "./components/loader-recording/loader.module";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
 
     AppRoutingModule,
     NgxGaugeModule,

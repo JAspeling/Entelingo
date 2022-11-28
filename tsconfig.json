@@ -22,8 +22,12 @@
     "lib": [
       "es2020",
       "dom"
-    ]
+    ],
   },
+  "include": [
+    "src/**/*.ts",
+    "src/index.d.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

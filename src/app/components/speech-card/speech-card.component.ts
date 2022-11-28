@@ -14,6 +14,7 @@ export class SpeechCardComponent implements OnInit {
   @Input() subHeader: string = '';
 
   @Output() text: EventEmitter<string> = new EventEmitter<string>();
+  @Output() result: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public recorded: string = '';
 
@@ -32,8 +33,10 @@ export class SpeechCardComponent implements OnInit {
 
     this.speech.final$.subscribe(() => {
       if (!this.isCorrect) {
+        this.result.emit(false);
         this.feedback = `Let's try that again.`;
       } else  {
+        this.result.emit(true);
         this.feedback = upperFirst(this.expected) + ' 🎉';
       }
     });
@@ -71,4 +74,8 @@ export class SpeechCardComponent implements OnInit {
     }
   }
 
+  reset() {
+    this.isCorrect = false;
+    this.feedback = '';
+  }
 }

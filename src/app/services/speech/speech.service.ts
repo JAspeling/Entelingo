@@ -26,7 +26,7 @@ export class SpeechService {
 
     this.recognition.addEventListener('result', (e: any) => {
       this.tempWords = Array.from(e.results)
-        .map((result: any) => { console.log(result); return result[0]; })
+        .map((result: any) => { return result[0]; })
         .map((result) => {
           // console.log(result);
           // if (result.isFinal) {
