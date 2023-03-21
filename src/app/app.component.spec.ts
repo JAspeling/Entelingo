@@ -1,8 +1,29 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { SpeechService } from "./services/speech/speech.service";
 
 describe('AppComponent', () => {
+  beforeEach(() => {
+    jest.mock('webkitSpeechRecognition', () => {
+      return {
+        start: jest.fn(),
+        stop: jest.fn(),
+        onresult: jest.fn(),
+        onend: jest.fn(),
+        onerror: jest.fn(),
+        onstart: jest.fn(),
+        onspeechend: jest.fn(),
+        onnomatch: jest.fn(),
+        onaudioend: jest.fn(),
+        onaudiostart: jest.fn(),
+        onsoundend: jest.fn(),
+        onsoundstart: jest.fn(),
+        onspeechstart: jest.fn(),
+      }
+    });
+  })
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -11,6 +32,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [SpeechService]
     }).compileComponents();
   });
 

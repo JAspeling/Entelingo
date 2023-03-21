@@ -1,6 +1,7 @@
 import { BehaviorSubject, fromEvent, map, Observable, Subject } from "rxjs";
 import { Guid } from "../../models/guid";
 
+// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 declare var webkitSpeechRecognition: any;
 
 export class SpeechService {
@@ -19,35 +20,39 @@ export class SpeechService {
   private recognition = new webkitSpeechRecognition();
 
   constructor() {
-    console.log('[Speech service] init', this.id);
+    // console.log('[Speech service] init', this.id);
+    this.initSpeechRecognition();
+  }
+
+  private initSpeechRecognition() {
     this.recognition.interimResults = true;
     this.recognition.continuous = false;
     this.recognition.lang = 'nl-NL';
 
-    this.recognition.addEventListener('result', (e: any) => {
-      this.tempWords = Array.from(e.results)
-        .map((result: any) => { return result[0]; })
-        .map((result) => {
-          // console.log(result);
-          // if (result.isFinal) {
-          //   return result.transcript;
-          // } else {
+    this.recognition.addEventListener('result', (args: any) => this.onResult(args));
+    this.recognition.addEventListener('speechend', (args: any) => this.onSpeechEnd(args));
+  }
 
-            this.wordConcat();
-            // this.currentText$.next(result.transcript);
-          // }
-          this.text = '';
-          return result.transcript;
-        })
-        .join('');
-    });
+  /**
+   *
+   * @param results SpeechRecognitionEvent The results from the active transcription
+   */
+  public onResult(event: any) {
+    const results: SpeechRecognitionResultList = event.results;
+    this.tempWords = Array.from(results)
+      .map((result: SpeechRecognitionResult) => { return result[0]; })
+      .map((result: SpeechRecognitionAlternative) => {
+        this.wordConcat();
+        this.text = '';
+        return result.transcript;
+      })
+      .join('');
+  }
 
-
-    this.recognition.addEventListener('speechend', (e: any) => {
-      // TODO: Might need to add conditional checking and an observable pipe here to delay the stop() call.
-      console.log("Speech recognition stopped");
-      this.stop();
-    })
+  public onSpeechEnd(event: any) {
+    // TODO: Might need to add conditional checking and an observable pipe here to delay the stop() call.
+    // console.log("Speech recognition stopped");
+    this.stop();
   }
 
   public start(): Observable<string> {
@@ -74,13 +79,13 @@ export class SpeechService {
     // });
   }
 
-  stop() {
+  public stop() {
     this.isStopped = true;
     this.stoppedRecording$.next(true);
     this.wordConcat()
     this.recognition.stop();
     this.final$.next(this.text);
-    console.log("End speech recognition")
+    // console.log("End speech recognition")
   }
 
   private wordConcat(): string {
