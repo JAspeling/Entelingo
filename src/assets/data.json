@@ -1,0 +1,86 @@
+{
+  "words": [
+    {
+      "word": "Begin",
+      "pronouns": [
+        {
+          "pronoun": "Ik",
+          "tenses": [
+            "begin",
+            "begon",
+            "ben begonnen",
+            "was begonnen"
+          ]
+        },
+        {
+          "pronoun": "Jij / Je / U",
+          "tenses": [
+            "begint",
+            "begon",
+            "bent begonnen",
+            "was begonnen"
+          ]
+        },
+        {
+          "pronoun": "Hij / Zij / Ze / Het",
+          "tenses": [
+            "begint",
+            "begon",
+            "bent begonnen",
+            "was begonnen"
+          ]
+        },
+        {
+          "pronoun": "Jullie",
+          "tenses": [
+            "beginnen",
+            "begonnen",
+            "zijn begonnen",
+            "waren begonnen"
+          ]
+        }
+      ]
+    },
+    {
+      "word": "Bijten",
+      "pronouns": [
+        {
+          "pronoun": "Ik",
+          "tenses": [
+            "bijt",
+            "beet",
+            "heb gebeten",
+            "had gebeten"
+          ]
+        },
+        {
+          "pronoun": "Jij / Je / U",
+          "tenses": [
+            "bijt",
+            "beet",
+            "hebt gebeten",
+            "had gebeten"
+          ]
+        },
+        {
+          "pronoun": "Hij / Zij / Ze / Het",
+          "tenses": [
+            "bijt",
+            "beet",
+            "heeft gebeten",
+            "had gebeten"
+          ]
+        },
+        {
+          "pronoun": "Jullie",
+          "tenses": [
+            "bijten",
+            "beten",
+            "hebben gebeten",
+            "hadden gebeten"
+          ]
+        }
+      ]
+    }
+  ]
+}

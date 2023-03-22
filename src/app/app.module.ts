@@ -12,6 +12,7 @@ import { FormsModule } from "@angular/forms";
 import { SharedModule } from "./shared.module";
 import { LoaderModule } from "./components/loader-recording/loader.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
 
     AppRoutingModule,
     NgxGaugeModule,
