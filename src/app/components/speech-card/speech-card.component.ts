@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, SkipSelf } from '@angular/core';
 import { SpeechService } from "../../services/speech/speech.service";
 import { upperFirst } from "lodash";
+import { FlattenedWordMeta } from "../../models/flattened-word-meta";
 
 @Component({
   selector: 'app-speech-card',
@@ -12,6 +13,7 @@ export class SpeechCardComponent implements OnInit {
   @Input() header: string = '';
   @Input() expected: string = '';
   @Input() subHeader: string = '';
+  @Input() wordMeta: FlattenedWordMeta;
 
   @Output() text: EventEmitter<string> = new EventEmitter<string>();
   @Output() result: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -68,7 +70,7 @@ export class SpeechCardComponent implements OnInit {
 
     if (this.isRecording || this.speech.isStopped) {
       this.feedback = '';
-      this.speech.start();
+      this.speech.start(this.wordMeta);
     } else {
       this.speech.stop();
     }

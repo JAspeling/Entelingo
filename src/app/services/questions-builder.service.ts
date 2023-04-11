@@ -86,7 +86,7 @@ export class QuestionsBuilderService {
         map(builder => {
           return builder.map(q => q.buildQuestions()).flatMap(q => q);
         }),
-        // As a side-effect, populate the forms dictionary
+        // As a side effect, populate the forms dictionary
         tap(data => {
           this.words.forEach((word, index) => {
             this.forms[word] = { index: index, forms: this.questions[this.getWordIndex(word)].forms };

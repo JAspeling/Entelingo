@@ -39,7 +39,8 @@ export class AppComponent {
   questions$: Observable<FlattenedWordMeta[]>;
   recognizedSpeech: string;
 
-  constructor(private speechService: SpeechService, private readonly questionsService: QuestionsBuilderService) {
+  constructor(private speechService: SpeechService,
+    private readonly questionsService: QuestionsBuilderService) {
     this.initSpeech();
 
     // this.questions = this.questionsService.getFlattenedQuestions();
@@ -144,23 +145,6 @@ export class AppComponent {
     }
     this.updateProgress();
   }
-
-  start() {
-    this.speechService.start();
-  }
-
-  // stop() {
-  //   this.speechService.stop();
-  // }
-  //
-  // listen(tense: any) {
-  //   tense.isRecording = true;
-  //   let sub = this.speechService.start().subscribe((result) => {
-  //     tense.speech = result;
-  //     tense.isRecording = false;
-  //     sub.unsubscribe();
-  //   });
-  // }
 
   fixSpeech(speech: string): string {
     // Remove the first occurrence of the form word (ik, hij, zij, etc)

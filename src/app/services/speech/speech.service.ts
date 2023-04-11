@@ -1,8 +1,10 @@
 import { BehaviorSubject, fromEvent, map, Observable, of, Subject } from "rxjs";
 import { Guid } from "../../models/guid";
+import { FlattenedWordMeta } from "../../models/flattened-word-meta";
 
 // const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 declare var webkitSpeechRecognition: any;
+declare var webkitSpeechGrammarList: any;
 
 export class SpeechService {
 
@@ -53,8 +55,59 @@ export class SpeechService {
     this.stop();
   }
 
-  public start(): void {
-    this.recognition.start();
+  public start(meta?: FlattenedWordMeta): void {
+    if (meta) {
+      // @ts-ignore
+      const expected = `${meta.personalPronoun.split(' ')[0]} ${meta.expected}`;
+
+      const languageModel: any = {};
+      languageModel[expected] = [...expected.split(' ')];
+
+      const similar: any = {
+        "weet": ["weet"],
+        "peet": ["peet"],
+        "peit": ["peit"],
+      };
+
+      const grammarString = `#JSGF V1.0; grammar custom; public <phrase> = (${Object.keys(languageModel).join(") | (")}) ;`;
+      const newGrammar = ""
+
+      const recognitionParams_old = {
+        grammar: [
+          {
+            src: `data:application/x-jsgf;base64,${btoa("")}`,
+            weight: 10
+          },
+        ],
+        lang: 'nl-NL'
+      };
+
+      const grammar = `#JSGF V1.0;
+      grammar custom;
+      public <phrase> = ik beet ! (ik peet | ik weet | ik peit | ik pe | ik peed);`
+
+      const grammarList = new webkitSpeechGrammarList();
+      grammarList.addFromString(grammar, 1);
+      this.recognition.grammars = grammarList;
+      console.log(grammarList[0].src); // should return the same as the contents of the grammar variable
+      console.log(grammarList[0].weight); // should return 1 - the same as the weight set in line 4.
+
+      const recognitionParams = {
+        grammar: {
+          src: `data:application/x-jsgf;base64,${btoa(`
+          #JSGF V1.0;
+          grammar custom;
+          public <phrase> = beet ! (peet | weet | peit | pe | peed | eet);
+        `)}`,
+          weight: 1
+        },
+        lang: 'nl-NL'
+      };
+
+      this.recognition.start();
+    } else {
+      this.recognition.start();
+    }
     this.isStopped = false;
   }
 
@@ -75,5 +128,8 @@ export class SpeechService {
 
     this.recognition.addEventListener('result', (event: any) => this.onResult(event));
     this.recognition.addEventListener('speechend', (event: any) => this.onSpeechEnd(event));
+    this.recognition.addEventListener('start', (event: any) => {
+      console.log("[speech] start", event);
+    });
   }
 }

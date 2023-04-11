@@ -1,7 +1,7 @@
 {
   "words": [
     {
-      "word": "Begin",
+      "word": "Beginnen",
       "pronouns": [
         {
           "pronoun": "Ik",
@@ -31,7 +31,7 @@
           ]
         },
         {
-          "pronoun": "Jullie",
+          "pronoun": "Jullie / wij / zij",
           "tenses": [
             "beginnen",
             "begonnen",
@@ -72,12 +72,53 @@
           ]
         },
         {
-          "pronoun": "Jullie",
+          "pronoun": "Jullie / wij / zij",
           "tenses": [
             "bijten",
             "beten",
             "hebben gebeten",
             "hadden gebeten"
+          ]
+        }
+      ]
+    },
+    {
+      "word": "Begrijpen",
+      "pronouns": [
+        {
+          "pronoun": "Ik",
+          "tenses": [
+            "begrijp",
+            "begreep",
+            "heb begrepen",
+            "had begrepen"
+          ]
+        },
+        {
+          "pronoun": "Jij / Je / U",
+          "tenses": [
+            "begrijpt",
+            "begreep",
+            "hebt begrepen",
+            "had begrepen"
+          ]
+        },
+        {
+          "pronoun": "Hij / Zij / Ze / Het",
+          "tenses": [
+            "bijt",
+            "begreep",
+            "heeft begrepen",
+            "had begrepen"
+          ]
+        },
+        {
+          "pronoun": "Jullie / wij / zij",
+          "tenses": [
+            "bijten",
+            "begrepen",
+            "hebben begrepen",
+            "hadden begrepen"
           ]
         }
       ]
